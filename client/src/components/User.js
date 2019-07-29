@@ -87,8 +87,8 @@ export default class User extends Component {
       </form>
     ) : (
       <div>
-        <Button onClick={this.handleToggleEditForm}>Edit Creature</Button>
-        <Button onClick={this.handleDeleteCreature}>Delete Creature</Button>
+        <Button onClick={this.handleToggleEditForm}>Edit User</Button>
+        <Button onClick={this.handleDeleteCreature}>Delete User</Button>
       </div>
     );
   }

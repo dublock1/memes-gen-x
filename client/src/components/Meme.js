@@ -38,7 +38,7 @@ export default class Memes extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    axios.put(`/api/memes/${this.state.newMeme._id}`, this.state.newMeme)
+    axios.put(`/api/memes/${this.props.match.params.memeId}`, this.state.newMeme)
         .then((res) => {
             this.setState({
                 newMeme: res.data,

@@ -88,7 +88,7 @@ export default class Meme extends Component {
         </form>
 
         <div>
-          {memeList}
+          
         </div>
       </div>
     );

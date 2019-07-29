@@ -46,13 +46,13 @@ export default class HomePage extends Component {
           {this.state.isNewFormDisplayed ? (
             <div>
               <CarouselMemes />
+              <Button onClick={this.handleToggleNewForm}>Create</Button>
               {memeList}
             </div>
           ) : (
             <Memes handleToggleNewForm={this.handleToggleNewForm} />
           )}
         </div>
-        <Button onClick={this.handleToggleNewForm}>Create</Button>
       </div>
     );
   }
