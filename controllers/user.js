@@ -45,7 +45,7 @@ userRouter.get('/', (req, res) => {
 })
 
 userRouter.get('/:userId', (req, res) => {
-    userApi.getMeme(req.params.userId)
+    userApi.getUser(req.params.userId)
     .then((user) => {
         res.json(user)
     })
@@ -61,7 +61,7 @@ userRouter.post('/', (req, res) => {
     })
 })
 
-userRouter.put('/:memeId', (req, res) => {
+userRouter.put('/:userId', (req, res) => {
     userApi.updateUser(req.params.userId, req.body)
     .then((updateUser) => {
         res.json(updateUser)
