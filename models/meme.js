@@ -27,7 +27,9 @@ const mongoose = require('./connection.js')
  *
  */
 const MemeSchema = new mongoose.Schema({
- name: String
+ image: String,
+ topText: String,
+ bottomText: String
 })
 
 /* Step 3
