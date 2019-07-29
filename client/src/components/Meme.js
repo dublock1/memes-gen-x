@@ -112,7 +112,7 @@ handleDeleteMeme = () => {
 
                             <input 
                                 type='submit'
-                                value='Update Creature'
+                                value='Update Meme'
                             />
                     </form>
                     : 
