@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-/* .navBar {
+.navBar {
   display: flex;
   width: 100vw;
   justify-content: space-around;
@@ -24,7 +24,7 @@ code {
 
 .navBar button {
   background-color: red
-} */
+} 
 
 .carousel {
   width: 100%;
