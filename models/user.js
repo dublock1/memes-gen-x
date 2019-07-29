@@ -1,5 +1,5 @@
-/* 
- * Place all functions, classes, and/or DB schemas here for a single 
+/*
+ * Place all functions, classes, and/or DB schemas here for a single
  * model.
  */
 
@@ -9,11 +9,11 @@
  * NOTE: skip this if you are not using mongoose
  *
  */
-const mongoose = require('./connection.js')
+const mongoose = require("./connection.js");
 
 /* Step 1 alternative
  *
- * TODO: make a global variable to act as an in memory database. 
+ * TODO: make a global variable to act as an in memory database.
  * NOTE: doing this WILL NOT persist your data and you will loose
  * your data once you stop running your server.
  *
@@ -22,13 +22,15 @@ const mongoose = require('./connection.js')
 
 /* Step 2
  *
- * TODO: create model schema 
+ * TODO: create model schema
  * NOTE: skip this if you are not using mongoose
  *
  */
 const UserSchema = new mongoose.Schema({
- name: String
-})
+  firstName: String,
+  lastName: String,
+  email: String
+});
 
 /* Step 3
  *
@@ -36,7 +38,7 @@ const UserSchema = new mongoose.Schema({
  * NOTE: skip this if you are not using mongoose
  *
  */
-const UserCollection = mongoose.model('User', UserSchema)
+const UserCollection = mongoose.model("User", UserSchema);
 
 /* Step 4
  *
@@ -44,23 +46,23 @@ const UserCollection = mongoose.model('User', UserSchema)
  *
  */
 function getAllUsers() {
-  return UserCollection.find()
+  return UserCollection.find();
 }
 
 function getUser(userId) {
-    return UserCollection.findById(userId)
+  return UserCollection.findById(userId);
 }
 
 function addNewUser(userObject) {
-    return UserCollection.create(userObject)
+  return UserCollection.create(userObject);
 }
 
 function updateUser(userId, updateUser) {
-    return UserCollection.findByIdAndUpdate(userId, updateUser)
+  return UserCollection.findByIdAndUpdate(userId, updateUser);
 }
 
 function deleteUser(userId) {
-    return UserCollection.findByIdAndDelete(userId)
+  return UserCollection.findByIdAndDelete(userId);
 }
 
 /* Step 5
@@ -74,4 +76,4 @@ module.exports = {
   addNewUser,
   updateUser,
   deleteUser
-}
+};
