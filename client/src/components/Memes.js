@@ -1,91 +1,95 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
-import pug from "./images/pug.gif";
-import baby from "./images/baby.jpg";
-import cage from "./images/niccage.jpg";
-import "../index.css";
-import Canvas from "./Canvas";
-import { Carousel, Form, Container, Row, Col } from "react-bootstrap";
+import {Link} from 'react-router-dom'
+import HomePage from "./HomePage";
+import axios from "axios";
 
-export default class Memes extends Component {
+export default class Meme extends Component {
   state = {
+    isNewFormDisplayed: false,
+    hasMemesBeenCreated: false,
     newMeme: {
-      img: "",
+      image: "",
       topText: "",
       bottomText: ""
     },
-    clickedImage: "",
-    meme: []
+    memes: []
   };
 
-  onclick = event => {
-    const clickedImage = { ...this.state.clickedImage };
-    console.log("clicked", event.target);
-    this.setState({ clickedImage: event.target.src });
+  componentDidMount() {
+    this.getAllMemes();
+  }
+
+  getAllMemes = () => {
+    axios.get("/api/memes").then(res => {
+      this.setState({ memes: res.data });
+    });
   };
 
+  handleMemeSubmit = e => {
+    e.preventDefault();
+
+    axios.post("/api/memes", this.state.newMeme).then(() => {
+      this.setState({ isNewFormDisplayed: false });
+      this.props.handleToggleNewForm();
+      this.getAllMemes();
+    });
+  };
+
+  handleInputChange = event => {
+    const copiedMeme = { ...this.state.newMeme };
+    copiedMeme[event.target.name] = event.target.value;
+
+    this.setState({ newMeme: copiedMeme });
+  };
   render() {
+    let memeList = this.state.memes.map(meme => {
+      return (
+        <div>
+          <Link key={meme._id} to={`/memes/${meme._id}`}>
+            <p>topText={meme.topText}</p>
+            <img src={meme.image}/>
+            <p>bottomText={meme.bottomText}</p>            
+          </Link>
+        </div>
+      );
+    });
     return (
       <div>
-        <NavBar />
-        <Container>
-          <Row>
-            <Col>
-              <p>{this.state.topText}</p>
-              <img className="memeImages" src={this.state.clickedImage} />
-              <p>{this.state.bottomText}</p>
-            </Col>
-            <Col>
-              <Carousel>
-                <Carousel.Item>
-                  {/* <TouchableHighlight onPress={this.onclick}> */}
-                  <img
-                    width="100%"
-                    height="100%"
-                    className="memeImages"
-                    src={baby}
-                    alt="first slide"
-                    onClick={this.onclick}
-                  />
-                  {/* </TouchableHighlight> */}
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    width="100%"
-                    height="100%"
-                    className="memeImages"
-                    src={cage}
-                    alt="second slide"
-                    onClick={this.onclick}
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    width="100%"
-                    height="100%"
-                    className="memeImages"
-                    src={pug}
-                    alt="third slide"
-                    onClick={this.onclick}
-                  />
-                  {/* </TouchableHighlight> */}
-                </Carousel.Item>
-              </Carousel>
-            </Col>
-          </Row>
-          <Row>
-            <Form>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>textarea 1</Form.Label>
-                <Form.Control as="textarea" rows="2" />
-              </Form.Group>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>textarea 2</Form.Label>
-                <Form.Control as="textarea" rows="2" />
-              </Form.Group>
-            </Form>
-          </Row>
-        </Container>
+        <form onSubmit={this.handleMemeSubmit}>
+        <label htmlFor="new-meme-topText">Top Text</label>
+          <input
+            type="text"
+            id="new-meme-topText"
+            name="topText"
+            onChange={this.handleInputChange}
+            value={this.state.newMeme.topText}
+          />
+         
+          <label htmlFor="new-meme-image">image</label>
+          <input
+            type="text"
+            id="new-meme-image"
+            name="image"
+            onChange={this.handleInputChange}
+            value={this.state.newMeme.image}
+          />
+          
+
+          <label htmlFor="new-meme-bottomText">Bottom Text</label>
+          <input
+            type="text"
+            id="new-meme-bottomText"
+            name="bottomText"
+            onChange={this.handleInputChange}
+            value={this.state.newMeme.bottomText}
+          />
+
+          <input type="submit" value="Add Meme" />
+        </form>
+
+        <div>
+          {memeList}
+        </div>
       </div>
     );
   }
