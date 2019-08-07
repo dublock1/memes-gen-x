@@ -3,7 +3,7 @@
 # Setup A New Project From This Template
 
 # Project 3 : Meme-Gen X [MERN App]
-![ATL](https://user-images.githubusercontent.com/50855671/62056964-ab8c2f00-b1ec-11e9-8900-57bd8551317c.png)
+
 I made a meme generator app. 
 ## Links :
 * Trello project board : [trello](https://trello.com/b/Eb23bXIj/memes-gen-x)
